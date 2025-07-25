@@ -1,0 +1,5 @@
+Export high resolution figure:
+print(gcf,'foo.png','-dpng','-r800');
+
+Read entire tabular data into a cell array:
+data_full = readmatrix('ME370Experiment3_Data.txt','range', 'A1','outputType','string')
