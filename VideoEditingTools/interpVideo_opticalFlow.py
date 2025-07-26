@@ -12,13 +12,13 @@ fps = cap.get(cv2.CAP_PROP_FPS)
 width  = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-multiplier = int(interpolation[0])  # "2x" → 2, "4x" → 4
+multiplier = int(interpolation[0])  # "2x": 2, "4x": 4
 out = cv2.VideoWriter(output_path, fourcc, fps * multiplier, (width, height))
 
 # get first frame
 ret, prev_frame = cap.read()
 if not ret:
-    print("❌ Failed to read first frame.")
+    print("Failed to read first frame.")
     cap.release()
     exit()
 
@@ -58,4 +58,4 @@ out.write(prev_frame)
 
 cap.release()
 out.release()
-print(f"✅ Interpolation ({interpolation}) complete. Output saved to: {output_path}")
+print(f"Interpolation ({interpolation}) complete! Output: {output_path}")
