@@ -6,6 +6,7 @@ export repairPDF,mergePDFs,extractPages
 
 const path_GS = raw"D:\Program Files\gs\gs10.06.0\bin\gswin64c.exe" # change to the local Ghostscript installation path
 
+# repair and compress PDF
 function repairPDF(inputPath::String;outputPath::String="")
     if !isfile(inputPath)
         error("file not found: $inputPath")
@@ -34,6 +35,7 @@ function repairPDF(inputPath::String;outputPath::String="")
     println("repair complete; saved to: $outputPath")
 end
 
+# merge PDFs
 function mergePDFs(inputFiles::Vector{String};outputPath::String="")
     if isempty(inputFiles)
         error("input vector is empty; provide at least one PDF")
@@ -59,6 +61,7 @@ function mergePDFs(inputFiles::Vector{String};outputPath::String="")
     println("merge complete; saved to: $outputPath")
 end
 
+# extract pages
 function extractPages(inputPath::String,pageList::Vector{Int64};outputPath::String="")
     if !isfile(inputPath)
         error("file not found: $inputPath")
