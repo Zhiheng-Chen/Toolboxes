@@ -1,13 +1,14 @@
-# need Ghostscript installed
+# need Ghostscript and Draw.io installed
 # make sure the path names of PDFs have ".pdf" at the end
 
 using Pkg;Pkg.activate(raw"D:\Toolboxes\JuliaTools");Pkg.instantiate()  # change to the path of the folder PDFTools.jl is in
 
 module PDFTools
 
-export repairPDF,mergePDFs,extractPages
+export repairPDF,mergePDFs,extractPages,SVG2PDF
 
 const path_GS = raw"D:\Program Files\gs\gs10.06.0\bin\gswin64c.exe" # change to the local Ghostscript installation path
+const path_Drawio = raw"D:\Program Files\draw.io\draw.io.exe"   # change to the local Draw.io installation path
 
 # repair and compress PDF
 function repairPDF(inputPath::String;outputPath::String="")
@@ -90,6 +91,32 @@ function extractPages(inputPath::String,pageList::Vector{Int64};outputPath::Stri
     println("extracting pages $pageListString")
     run(`$path_GS $flags`)
     println("extraction complete; saved to: $outputPath")
+end
+
+# SVG to PDF 
+function SVG2PDF(inputPath::String;outputPath::String="",crop::Bool=true)
+    if !isfile(inputPath)
+        error("file not found: $inputPath")
+    end
+    if isempty(outputPath)
+        outputPath = replace(inputPath,r"\.(svg|drawio)$"i=>".pdf")
+    end
+
+    # generate Draw.io commands
+    if crop == true
+        cmd = `"$path_Drawio" -x -f pdf --crop --transparent -o "$outputPath" "$inputPath"`
+    else
+        cmd = `"$path_Drawio" -x -f pdf --transparent -o "$outputPath" "$inputPath"`
+    end
+
+    # convert
+    println("converting: $inputPath ...")
+    try
+        run(cmd)
+        println("conversion complete; saved to: $outputPath")
+    catch e
+        error("conversion failed; error: $e")
+    end
 end
 
 end
