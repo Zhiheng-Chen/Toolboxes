@@ -5,7 +5,7 @@ using Pkg;Pkg.activate(raw"D:\Toolboxes\JuliaTools");Pkg.instantiate()  # change
 
 module PDFTools
 
-export repairPDF,mergePDFs,extractPages,SVG2PDF
+export repairPDF,mergePDFs,extractPages,Drawio2PDF
 
 const path_GS = raw"D:\Program Files\gs\gs10.06.0\bin\gswin64c.exe" # change to the local Ghostscript installation path
 const path_Drawio = raw"D:\Program Files\draw.io\draw.io.exe"   # change to the local Draw.io installation path
@@ -93,8 +93,8 @@ function extractPages(inputPath::String,pageList::Vector{Int64};outputPath::Stri
     println("extraction complete; saved to: $outputPath")
 end
 
-# SVG to PDF 
-function SVG2PDF(inputPath::String;outputPath::String="",crop::Bool=true)
+# Drawio to PDF 
+function Drawio2PDF(inputPath::String;outputPath::String="",crop::Bool=true)
     if !isfile(inputPath)
         error("file not found: $inputPath")
     end
@@ -110,7 +110,7 @@ function SVG2PDF(inputPath::String;outputPath::String="",crop::Bool=true)
     end
 
     # convert
-    println("converting: $inputPath ...")
+    println("converting: $inputPath")
     try
         run(cmd)
         println("conversion complete; saved to: $outputPath")
