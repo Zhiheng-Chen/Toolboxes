@@ -1,6 +1,9 @@
-module PDFTools
 # need Ghostscript installed
 # make sure the path names of PDFs have ".pdf" at the end
+
+using Pkg;Pkg.activate(raw"D:\Toolboxes\JuliaTools");Pkg.instantiate()  # change to the path of the folder PDFTools.jl is in
+
+module PDFTools
 
 export repairPDF,mergePDFs,extractPages
 
@@ -25,7 +28,7 @@ function repairPDF(inputPath::String;outputPath::String="")
              "-dDetectDuplicateImages=true",
              "-dCompressFonts=true",
              "-dAutoRotatePages=/None",
-             # "-dHaveTransparency=false", # Commented out to prevent black pages
+             # "-dHaveTransparency=false", # commented out to prevent black pages
              "-o",outputPath,
              "-f",inputPath]
 
@@ -90,3 +93,5 @@ function extractPages(inputPath::String,pageList::Vector{Int64};outputPath::Stri
 end
 
 end
+
+using .PDFTools
