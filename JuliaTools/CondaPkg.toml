@@ -1,3 +1,8 @@
 [deps]
+ffmpeg = ""
 librsvg = ""
 cairosvg = ""
+
+[pip.deps]
+numpy = ""
+opencv-python = ""
