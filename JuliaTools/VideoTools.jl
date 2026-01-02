@@ -1,9 +1,4 @@
 using Pkg;Pkg.activate(raw"D:\Toolboxes\JuliaTools");Pkg.instantiate()  # change to the path of the folder PDFTools.jl is in
-
-module VideoTools 
-
-export bilateralFilter,interpVideo_opticalFlow,reverseVideo
-
 using PythonCall 
 using CondaPkg
 
@@ -233,7 +228,3 @@ function reverseVideo(inputPath::String;outputPath::String="")
         rm(temp_audio, force=true)
     end
 end
-
-end
-
-using .VideoTools

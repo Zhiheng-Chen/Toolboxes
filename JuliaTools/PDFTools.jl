@@ -3,10 +3,6 @@
 
 using Pkg;Pkg.activate(raw"D:\Toolboxes\JuliaTools");Pkg.instantiate()  # change to the path of the folder PDFTools.jl is in
 
-module PDFTools
-
-export repairPDF,mergePDFs,extractPages,Drawio2PDF
-
 const path_GS = raw"D:\Program Files\gs\gs10.06.0\bin\gswin64c.exe" # change to the local Ghostscript installation path
 const path_Drawio = raw"D:\Program Files\draw.io\draw.io.exe"   # change to the local Draw.io installation path
 
@@ -118,7 +114,3 @@ function Drawio2PDF(inputPath::String;outputPath::String="",crop::Bool=true)
         error("conversion failed; error: $e")
     end
 end
-
-end
-
-using .PDFTools
